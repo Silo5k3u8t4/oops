@@ -50,3 +50,17 @@ class Result extends Mark implements sports
         System.out.println("Total ::- "+(total+sportsweightage));
     }
 }
+class Mainm
+{
+    public static void main(String[]arsg)
+    {
+        int no,m1,m2;
+        Scanner so=new Scanner(System.in);
+        System.out.println("Enter details::::\nregno\nmark 1\nmark 2\n::::::::");
+        no=so.nextInt();
+        m1=so.nextInt();
+        m2=so.nextInt();
+        Result r1 =new Result(no,m1,m2);
+        r1.displayResult();
+    }
+}
