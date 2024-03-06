@@ -16,6 +16,9 @@ class Mark extends Student
     int m1,m2;
     Mark(int r,int a,int b)
     {
-        super(b); 
+        super(r);
+        m1=a;
+        m2=b;
     }
+    void display
 }
