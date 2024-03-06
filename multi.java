@@ -20,5 +20,33 @@ class Mark extends Student
         m1=a;
         m2=b;
     }
-    void display
+    void displayMark()
+    {
+        System.out.println("Mark 1 ::- "+m1+"\nMark 2 ::- "+m2);
+    }
+}
+interface sports
+{
+    int sportsweightage=20;
+    void displaysports();
+}
+class Result extends Mark implements sports
+{
+    int total=0;
+    Result(int a,int b,int c)
+    {
+        super(a,b,c);
+        total=b+c;
+    }
+    void displaysports()
+    {
+        System.out.println("Weightage ::- "+sportsweightage);
+    }
+    void displayResult()
+    {
+        displayregno();
+        displayMark();
+        displaysports();
+        System.out.println("Total ::- "+(total+sportsweightage));
+    }
 }
