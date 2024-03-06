@@ -10,7 +10,7 @@ class Employee
     }
     void display()
     {
-        System.out.println("\n\nEmploeeID ::- "+employeeID+"\nEmployee name ::- "+empName);
+        System.out.println("\n\nEmployeeID ::- "+employeeID+"\nEmployee name ::- "+empName);
     }
 }
 class Engineer extends Employee
@@ -71,7 +71,7 @@ class hiemain
                 id=s.nextInt();
                 System.out.print("Enter name ::");
                 n=s.next();
-                System.out.print("Enter typng speed :: ");
+                System.out.print("Enter typing speed :: ");
                 S=s.nextInt();
                 Typist t1=new Typist(id, n, S);
                 t1.displayTypist();
