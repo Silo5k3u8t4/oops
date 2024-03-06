@@ -38,7 +38,7 @@ class Result extends Mark implements sports
         super(a,b,c);
         total=b+c;
     }
-    void displaysports()
+    public void displaysports()
     {
         System.out.println("Weightage ::- "+sportsweightage);
     }
