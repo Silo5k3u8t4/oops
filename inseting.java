@@ -1,10 +1,23 @@
 import java.sql.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Scanner;
 class dbinsert extends JFrame implements ActionListener
 {
-    JTextField regno,name,mark;
+    Connection DBConnect()
+    {
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return conn;
+        
+    }
+    JTextField tregno,name,mark;
     JButton sea,lis,ins,del,upd,cle;
     JLabel lregno,lname,lmark,status;
     dbinsert()
@@ -15,20 +28,32 @@ class dbinsert extends JFrame implements ActionListener
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         lregno=new JLabel("Register number");
-        lregno.setBounds(20,50,100,50);add(lregno);
-        regno=new JTextField();
-        regno.setBounds(180,50,100,50);add(regno);
+        lregno.setBounds(20,50,100,50);
+        add(lregno);
+        tregno=new JTextField();
+        tregno.setBounds(180,50,100,50);
+        add(tregno);
         lname=new JLabel("Name");
-        lname.setBounds(20,110,100,50);add(lname);
+        lname.setBounds(20,110,100,50);
+        add(lname);
         name=new JTextField();
-        name.setBounds(180,110,100,50);add(name);
+        name.setBounds(180,110,100,50);
+        add(name);
         lmark=new JLabel("Mark");
-        lmark.setBounds(20,170,100,50);add(lmark);
+        lmark.setBounds(20,170,100,50);
+        add(lmark);
         mark=new JTextField();
-        mark.setBounds(180,170,100,50);add(mark);
-        ins=new JButton("Insert");ins.setBounds(350,150,100,50);add(ins);
-        cle=new JButton("Clear");cle.setBounds(350,300,100,50);add(cle);
-        status=new JLabel("-----------");status.setBounds(50,350,250,50);add(status);
+        mark.setBounds(180,170,100,50);
+        add(mark);
+        ins=new JButton("Insert");
+        ins.setBounds(350,150,100,50);
+        add(ins);
+        cle=new JButton("Clear");
+        cle.setBounds(350,300,100,50);
+        add(cle);
+        status=new JLabel("-----------");
+        status.setBounds(50,350,250,50);
+        add(status);
         ins.addActionListener(this);
         cle.addActionListener(this);
         setVisible(true);
@@ -48,9 +73,9 @@ class dbinsert extends JFrame implements ActionListener
         String sql;
         try{
             con=DBConnect();
-            int reg=Integer.parseInt(regno.getText());
+            String reg=tregno.getText();
             Statement stmnt=con.createStatement();
-            sql="select * from s4ct where id="+reg;
+            sql="select * from s4ct where regno = '"+reg+"'";
             ResultSet rs=stmnt.executeQuery(sql);
             if(rs.next())
             {
@@ -60,38 +85,30 @@ class dbinsert extends JFrame implements ActionListener
             {
                 String sname=name.getText();
                 int smark=Integer.parseInt(mark.getText());
-                sql="insert into s4ct(id,name,mark) values(?,?,?)";
+                sql="insert into s4ct(regno,Name,Mark) values (?,?,?)";
                 PreparedStatement prs=con.prepareStatement(sql);
-                prs.setInt(1,reg);
+                prs.setString(1,reg);
                 prs.setString(2,sname);
                 prs.setInt(3,smark);
-        prs.executeUpdate();
-    status.setText(reg+" successfully Inserted!!!");
-    }
-    con.close();
-    }
-    catch(SQLException e)
-    {e.printStackTrace();
-    }
+                prs.executeUpdate();
+                status.setText(reg+" successfully Inserted!!!");
+            }
+            con.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
     void clear()
-    {regno.setText("");
-    name.setText("");
-    mark.setText("");
-    status.setText("");
-    }
-    Connection DBConnect()
     {
-    Connection conn=null;
-    try{
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    conn=DriverManager.getConnection(
-    "jdbc:mysql://localhost:3306/myDB","root","Password*123");
-    }catch(Exception e)
-    { System.out.println(e);}
-    return conn;
+        tregno.setText("");
+        name.setText("");
+        mark.setText("");
+        status.setText("");
     }
     public static void main(String args[])
-    {new dbinsert();
+    {   
+        new dbinsert();
     }
-    }
+}
